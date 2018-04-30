@@ -5,7 +5,7 @@ const header = () => {
   const appName = 'React App'
 
   return (
-    <header id="app-header">
+    <header id="Header">
       <h1>Hi, I'm a {appName}</h1>
     </header>
   )
