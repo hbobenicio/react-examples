@@ -10,14 +10,14 @@ class App extends Component {
       { name: 'Hugo', age: 30 },
       { name: 'Janaina', age: 30 },
       { name: 'Gael', age: 1 }
-    ]
+    ],
+    showPeople: false
   }
 
   swapNameHandler = () => {
     //DONT DO THIS: this.state.people[0].name = 'Hugo Benicio'
     //use this.setState instead
     this.setState({
-      ...this.state,
       people: [
         { name: 'Hugo Benício Miranda de Oliveira', age: 30 },
         { name: 'Janaina Meneses Lima Barbosa', age: 30 },
@@ -28,13 +28,31 @@ class App extends Component {
 
   nameChangedHandler = (event) => {
     this.setState({
-      ...this.state,
       people: [
         { name: event.target.value, age: 30 },
         { name: 'Janaina Meneses Lima Barbosa', age: 30 },
         { name: 'Gael', age: 1 }
       ]
     })
+  }
+
+  peopleToggledHandler = () => {
+    this.setState({
+      showPeople: !this.state.showPeople
+    })
+  }
+
+  renderPeople = () => {
+    let people = null
+
+    if (this.state.showPeople) {
+      const personTemplate = person => <Person name={person.name} age={person.age} />
+      people = <div>
+        { this.state.people.map(personTemplate) }
+      </div>
+    }
+
+    return people
   }
 
   render = () => {
@@ -60,15 +78,16 @@ class App extends Component {
 
         <hr />
 
-        <button type="button" style={buttonStyle}
-          onClick={this.swapNameHandler}>Swap Names</button>
+        <div style={{textAlign: 'center'}}>
+          <button type="button" style={buttonStyle}
+            onClick={this.swapNameHandler}>Swap Names</button>
 
-        <Person name={this.state.people[0].name} age={this.state.people[0].age}
-          nameChangeHandler={this.nameChangedHandler}>
-          <p>My hobby is programming</p>
-        </Person>
-        <Person name={this.state.people[1].name} age={this.state.people[1].age} />
-        <Person name={this.state.people[2].name} age={this.state.people[2].age} />
+          <button type="button" style={buttonStyle}
+            onClick={this.peopleToggledHandler}>Toggle People</button>
+        </div>
+
+
+        { this.renderPeople() }
       </div>
     )
   }

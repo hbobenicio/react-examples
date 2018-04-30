@@ -14,6 +14,12 @@ class GuessingGame extends Component {
     })
   }
 
+  toggleCheatBoxClickedHandler = () => {
+    this.setState({
+      showCheatBox: !this.state.showCheatBox
+    })
+  }
+
   checkGuess = () => {
     const guessNumber = parseInt(this.state.guessInput, 10)
 
@@ -24,11 +30,23 @@ class GuessingGame extends Component {
     }
   }
 
+  renderCheatBox = () => {
+    let cheatbox = null
+
+    if (this.state.showCheatBox) {
+      cheatbox = <span>The magic number is: { this.state.magicNumber }</span>
+    }
+
+    return cheatbox
+  }
+
   render = () => (
     <div className="guessing-game">
-      <p className="guessing-game-cheatbox">
-        The magic number is: { this.state.magicNumber }
-      </p>
+      <div className="guessing-game-cheatbox">
+        <button type="text" onClick={this.toggleCheatBoxClickedHandler}>Toggle Cheat Box</button>
+        { this.renderCheatBox() }
+      </div>
+      
       <div>
         <label htmlFor="guessNumber">Enter your guess:</label>
         <input id="guessNumber"
