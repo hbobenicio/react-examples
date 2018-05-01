@@ -7,9 +7,9 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     people: [
-      { name: 'Hugo', age: 30 },
-      { name: 'Janaina', age: 30 },
-      { name: 'Gael', age: 1 }
+      { id: 1, name: 'Hugo', age: 30 },
+      { id: 2, name: 'Janaina', age: 30 },
+      { id: 3, name: 'Gael', age: 1 }
     ],
     showPeople: false
   }
@@ -19,20 +19,25 @@ class App extends Component {
     //use this.setState instead
     this.setState({
       people: [
-        { name: 'Hugo Benício Miranda de Oliveira', age: 30 },
-        { name: 'Janaina Meneses Lima Barbosa', age: 30 },
-        { name: 'Gael', age: 1 }
+        { id: 1, name: 'Hugo Benício Miranda de Oliveira', age: 30 },
+        { id: 2, name: 'Janaina Meneses Lima Barbosa', age: 30 },
+        { id: 3, name: 'Gael', age: 1 }
       ]
     })
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (id, event) => {
+    const personIndex = this.state.people.findIndex(p => p.id === id)
+    const newPerson = {
+      ...this.state.people[personIndex],
+      name: event.target.value
+    }
+
+    const newPeople = [...this.state.people]
+    newPeople[personIndex] = newPerson
+
     this.setState({
-      people: [
-        { name: event.target.value, age: 30 },
-        { name: 'Janaina Meneses Lima Barbosa', age: 30 },
-        { name: 'Gael', age: 1 }
-      ]
+      people: newPeople
     })
   }
 
@@ -46,10 +51,18 @@ class App extends Component {
     let people = null
 
     if (this.state.showPeople) {
-      const personTemplate = person => <Person name={person.name} age={person.age} />
-      people = <div>
-        { this.state.people.map(personTemplate) }
-      </div>
+      const personTemplate = person =>
+        <Person key={person.id}
+          name={person.name} age={person.age}
+          nameChangeHandler={(event) => this.nameChangedHandler(person.id, event)} />
+      // const personTemplate = person =>
+      //   <Person key={person.id}
+      //     name={person.name} age={person.age}
+      //     nameChangeHandler={this.nameChangedHandler.bind(this, person.id)} />
+        
+      people = <div>{
+        this.state.people.map(personTemplate)
+      }</div>
     }
 
     return people
