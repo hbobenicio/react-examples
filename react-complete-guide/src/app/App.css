@@ -1,0 +1,15 @@
+#App > h1 {
+  text-align: center;
+}
+
+#App > p {
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
