@@ -4,5 +4,5 @@ import ReactDOM from 'react-dom';
 import App from './app/containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App title="Awesome Title" />, document.getElementById('root'));
 registerServiceWorker();
