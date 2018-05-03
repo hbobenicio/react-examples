@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from './Header/Header'
-import Content from './Content/Content'
 import Person from './Person/Person'
 
 class App extends Component {
@@ -73,23 +71,18 @@ class App extends Component {
     // You loose css powers though. There is
     // a better way to scope css...
     const buttonStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
+      margin: '8px',
       cursor: 'pointer',
       textAlign: 'center'
     }
 
     return (
       <div id="App">
-        <Header />
-
-        <hr />
-
-        <Content />
-
-        <hr />
 
         <div style={{textAlign: 'center'}}>
           <button type="button" style={buttonStyle}
@@ -98,7 +91,6 @@ class App extends Component {
           <button type="button" style={buttonStyle}
             onClick={this.peopleToggledHandler}>Toggle People</button>
         </div>
-
 
         { this.renderPeople() }
       </div>
