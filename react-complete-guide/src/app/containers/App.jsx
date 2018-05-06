@@ -15,6 +15,23 @@ class App extends Component {
     showPeople: false
   }
 
+  constructor(props) {
+    super(props)
+    console.log('[App.constructor] props:', props, 'state:', this.state)
+  }
+
+  componentWillMount() {
+    console.log('[App.componentWillMount]')
+  }
+
+  componentDidMount() {
+    console.log('[App.componentDidMount]')
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('[App.componentWillReceiveProps] nextProps:', nextProps)
+  }
+
   swapNameHandler = () => {
     //DONT DO THIS: this.state.people[0].name = 'Hugo Benicio'
     //use this.setState instead
@@ -70,6 +87,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.render]')
+
     return (
       <div className="App">
         <Cockpit people={this.state.people}
