@@ -3,6 +3,7 @@ import './App.css'
 
 import Cockpit from '../components/Cockpit/Cockpit'
 import People from '../components/People/People'
+import WithClass from '../hoc/WithClass';
 // import Person from '../components/People/Person/Person'
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
       { id: 2, name: 'Janaina', age: 30 },
       { id: 3, name: 'Gael', age: 1 }
     ],
-    showPeople: false
+    showPeople: false,
+    toggleClicked: 0
   }
 
   constructor(props) {
@@ -60,9 +62,20 @@ class App extends Component {
   }
 
   peopleToggledHandler = () => {
-    this.setState({
-      showPeople: !this.state.showPeople
-    })
+    // this.setState({
+    //   showPeople: !this.state.showPeople,
+    //   toggleClicked: this.state.toggleClicked + 1
+    // })
+
+    // Use the Function syntax if there is the
+    // danger that this setState doesn't finish
+    // before other setStates from the app.
+    // Remember... this.setState({}) is async.
+    // this.setState(() => ({})) is ok though.
+    this.setState((prevState, props) => ({
+      showPeople: !prevState.showPeople,
+      toggleClicked: prevState.toggleClicked + 1
+    }))
   }
 
   removedPersonHandler = (id, event) => {
@@ -89,16 +102,18 @@ class App extends Component {
   render() {
     console.log('[App.render]')
 
+    let people = this.renderPeople()
+
     return (
-      <div className="App">
+      <WithClass classes="App">
         <Cockpit people={this.state.people}
           appTitle={this.props.title}
           showPeople={this.state.showPeople}
           peopleToggleHandler={this.peopleToggledHandler}
           swapNameHandler={this.swapNameHandler} />
 
-        { this.renderPeople() }
-      </div>
+        { people }
+      </WithClass>
     )
   }
 }
