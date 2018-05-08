@@ -6,6 +6,10 @@ import People from '../components/People/People'
 import WithClass from '../hoc/WithClass';
 // import Person from '../components/People/Person/Person'
 
+// React 16.3 way:
+export const AuthContext = React.createContext(false)
+// PS.: Providers vs Consumers
+
 class App extends Component {
   state = {
     people: [
@@ -14,7 +18,8 @@ class App extends Component {
       { id: 3, name: 'Gael', age: 1 }
     ],
     showPeople: false,
-    toggleClicked: 0
+    toggleClicked: 0,
+    authenticated: false
   }
 
   constructor(props) {
@@ -22,17 +27,36 @@ class App extends Component {
     console.log('[App.constructor] props:', props, 'state:', this.state)
   }
 
-  componentWillMount() {
-    console.log('[App.componentWillMount]')
+  // Old Way (deprecated):
+  // componentWillMount() {
+  //   console.log('[App.componentWillMount]')
+  // }
+
+  // Old Way (deprecated):
+  // componentDidMount() {
+  //   console.log('[App.componentDidMount]')
+  // }
+
+  // Old Way (deprecated):
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('[App.componentWillReceiveProps] nextProps:', nextProps)
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('[App.getDerivedStateFromProps] nextProps:', nextProps, 'prevState:', prevState)
+    return prevState
   }
 
-  componentDidMount() {
-    console.log('[App.componentDidMount]')
+  componentDidUpdate() {
+    console.log('[App.componentDidUpdate]')
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('[App.componentWillReceiveProps] nextProps:', nextProps)
+  getSnapshotBeforeUpdate() {
+    console.log('[App.getSnapshotBeforeUpdate]')
   }
+
+  // PS.: Some lifecycle hooks are now deprecated (since 16.3)
+  // Check the docs to see which to avoid.
 
   swapNameHandler = () => {
     //DONT DO THIS: this.state.people[0].name = 'Hugo Benicio'
@@ -92,11 +116,19 @@ class App extends Component {
       return <div>
         <People people={this.state.people}
           nameChangeHandler={this.nameChangedHandler}
-          removeHandler={this.removedPersonHandler} />
+          removeHandler={this.removedPersonHandler}
+
+          // Old way:
+          // isAuthenticated={this.state.authenticated}
+          />
       </div>
     }
 
     return null
+  }
+
+  loginHandler = () => {
+    this.setState({authenticated: true})
   }
 
   render() {
@@ -109,10 +141,13 @@ class App extends Component {
         <Cockpit people={this.state.people}
           appTitle={this.props.title}
           showPeople={this.state.showPeople}
+          login={this.loginHandler}
           peopleToggleHandler={this.peopleToggledHandler}
           swapNameHandler={this.swapNameHandler} />
 
-        { people }
+        <AuthContext.Provider value={this.state.authenticated}>
+          { people }
+        </AuthContext.Provider>
       </WithClass>
     )
   }

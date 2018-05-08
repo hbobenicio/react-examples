@@ -14,9 +14,13 @@ import Person from './Person/Person'
 const people = (props) => 
   props.people.map((person, index) =>
     <Person key={person.id}
+      position={index}
       name={person.name} age={person.age}
       nameChangeHandler={event => props.nameChangeHandler(person.id, event)}
-      removeHandler={props.removeHandler.bind(this, index)}/>
+      removeHandler={props.removeHandler.bind(this, index)}
+      // Old way:
+      // isAuthenticated={props.isAuthenticated}
+      />
 )
 
 export default people

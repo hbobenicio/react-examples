@@ -41,6 +41,8 @@ const cockpit = (props) => {
         <button type="button"
           key='btn2' style={buttonStyle}
           onClick={props.peopleToggleHandler}>Toggle People</button>
+
+        <button type="button" onClick={props.login}>Log in</button>
       </div>
     </div>
   )
