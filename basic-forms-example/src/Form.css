@@ -1,0 +1,19 @@
+.Form label {
+  margin-right: 10px;
+}
+
+.Form .form-group {
+  margin-bottom: 10px;
+}
+
+.Form .form-data {
+  margin-top: 10px;
+}
+
+.Form input:invalid {
+  border: 1px solid red;
+}
+
+.Form input:valid {
+  border: 1px solid green;
+}
