@@ -1,7 +1,14 @@
+//@flow
 import React from 'react'
 
+type Props = {
+  label: string,
+  color: string,
+  value: number
+}
+
 // class Box extends React.Component {
-class Box extends React.PureComponent {
+class Box extends React.PureComponent<Props> {
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   const labelChanged = nextProps.label !== this.props.label;

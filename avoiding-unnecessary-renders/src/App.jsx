@@ -1,20 +1,26 @@
+//@flow
 import React from 'react'
 import Box from './Box'
 
-class App extends React.Component {
+type State = {
+  valueA: number,
+  valueB: number
+}
+
+class App extends React.Component<{}, State> {
   state = {
     valueA: 10,
     valueB: 20
   }
 
-  handleBoxAClick = () => {
-    this.setState((prevState) => ({
+  handleBoxAClick = (): void => {
+    this.setState((prevState: State) => ({
       valueA: prevState.valueA + 1
     }))
   }
 
-  handleBoxBClick = () => {
-    this.setState((prevState) => ({
+  handleBoxBClick = (): void => {
+    this.setState((prevState: State) => ({
       valueB: prevState.valueB + 1
     }))
   }
